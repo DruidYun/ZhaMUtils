@@ -28,8 +28,8 @@ void FZhaMUtilsEditorModule::RegisterMenus()
 
 	Section.AddMenuEntry(
 		"RenameSelectedActors",
-		LOCTEXT("RenameSelectedActors", "批量重命名Actor（# → _）"),
-		LOCTEXT("RenameSelectedActorsTooltip", "将选中Actor名字中的#替换为_"),
+		LOCTEXT("RenameSelectedActors", "批量重命名Actor（弹窗）"),
+		LOCTEXT("RenameSelectedActorsTooltip", "将选中Actor名字中的字符替换"),
 		FSlateIcon(),
 		FUIAction(FExecuteAction::CreateStatic(&FZhaMActorRenameTool::OpenActorRenameDialog))
 	);
