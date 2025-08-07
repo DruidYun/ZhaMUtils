@@ -11,5 +11,4 @@ public:
 
 private:
     void RegisterMenus();
-    void RegisterMenus2();
 };
