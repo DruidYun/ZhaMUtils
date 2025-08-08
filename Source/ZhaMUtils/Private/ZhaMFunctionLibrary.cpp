@@ -197,3 +197,49 @@ FTimespan UZhaMFunctionLibrary::GetMaxTimeOfDay()
 	return FTimespan( 23, 59, 59); // 23:59:59
 }
 
+bool UZhaMFunctionLibrary::IsValidPassword(const FString& Password)
+{
+	// 1. 长度至少8
+	if (Password.Len() < 8)
+		return false;
+
+	bool hasLower = false, hasUpper = false, hasDigit = false;
+
+	for (int32 i = 0; i < Password.Len(); ++i)
+	{
+		TCHAR ch = Password[i];
+		if (FChar::IsLower(ch))
+			hasLower = true;
+		else if (FChar::IsUpper(ch))
+			hasUpper = true;
+		else if (FChar::IsDigit(ch))
+			hasDigit = true;
+	}
+
+	if (!hasLower || !hasUpper || !hasDigit)
+		return false;
+
+	// 2. 连续3字符检查，升序或降序，字母和数字分开判断
+	for (int32 i = 0; i < Password.Len() - 2; ++i)
+	{
+		int32 c1 = (int32)FChar::ToLower(Password[i]);
+		int32 c2 = (int32)FChar::ToLower(Password[i + 1]);
+		int32 c3 = (int32)FChar::ToLower(Password[i + 2]);
+
+		bool allAlpha = FChar::IsAlpha(Password[i]) && FChar::IsAlpha(Password[i + 1]) && FChar::IsAlpha(Password[i + 2]);
+		bool allDigit = FChar::IsDigit(Password[i]) && FChar::IsDigit(Password[i + 1]) && FChar::IsDigit(Password[i + 2]);
+
+		if (allAlpha || allDigit)
+		{
+			int diff1 = c2 - c1;
+			int diff2 = c3 - c2;
+
+			if ((diff1 == 1 && diff2 == 1) || (diff1 == -1 && diff2 == -1))
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
+}

@@ -90,5 +90,7 @@ public:
 	UFUNCTION(BlueprintPure, Category = "ZhaMUtils|时间", DisplayName = "获取最大时间（23:59:59）")
 	static FTimespan GetMaxTimeOfDay();
 
+	UFUNCTION(BlueprintPure, Category="ZhaMUtils|验证", DisplayName="验证密码是否满足强度")
+	static bool IsValidPassword(const FString& Password);
 };
 
